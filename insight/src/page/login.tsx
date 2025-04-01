@@ -4,10 +4,37 @@ import CustomButton from '../component/button';
 import { useState } from 'react';
 import NavBar from '../component/navbar';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
 
     const [passVisible, setPassVisible] = useState(false);
+
+    const nav = useNavigate();
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        const data = {
+            email: formData.get('email'),
+            password: formData.get('password')
+        }
+
+        let isValid = true;
+
+        if (!data.email || !data.password) {
+            isValid = false;
+        }
+
+        if (!isValid) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        nav('/dashboard');
+    }
 
     const visHandler = () => {
         setPassVisible(!passVisible);
@@ -22,7 +49,7 @@ function LoginPage() {
                 <div className='p-2.5 md:p-26 lg:h-full lg:flex lg:justify-center lg:items-center'>
                     <div className='lg:border lg:p-16 xl:p-20 lg:rounded-lg lg:border-slate-200 lg:shadow-lg'>
                         <h1 className='text-center font-semibold pt-3 pb-3 xl:pb-10 xl:text-2xl'>Welcome! Start your day with a smile.</h1>
-                        <form className='lg:w-100'>
+                        <form className='lg:w-100' onSubmit={handleSubmit}>
                             <div className='grid grid-cols-1 gap-2'>
                                 <div className='grid grid-cols-1 gap-5'>
                                     <CustomTextField name='email' type='email' placeholder='sample@sample.com' label='Email' />
@@ -62,4 +89,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default LoginPage;
