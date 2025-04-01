@@ -1,10 +1,13 @@
+
+import { ErrorBoundary } from 'react-error-boundary';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 import googleIcon from '../../public/icons/icons8-google-96.png';
 import CustomTextField from '../component/textfield';
 import CustomButton from '../component/button';
-import { useState } from 'react';
 import NavBar from '../component/navbar';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useNavigate } from 'react-router-dom';
+
 
 function LoginPage() {
 
@@ -16,22 +19,6 @@ function LoginPage() {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-
-        const data = {
-            email: formData.get('email'),
-            password: formData.get('password')
-        }
-
-        let isValid = true;
-
-        if (!data.email || !data.password) {
-            isValid = false;
-        }
-
-        if (!isValid) {
-            alert("Please fill in all fields");
-            return;
-        }
 
         nav('/dashboard');
     }
