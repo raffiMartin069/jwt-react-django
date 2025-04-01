@@ -8,7 +8,9 @@ type Prop = {
 function CustomButton(props: Prop) {
     return (
         <div>
-            <button type={props.type} className='bg-black text-white p-2 rounded-md w-full'>{props.label}</button>
+            <button type={props.type} className='bg-black text-white p-2 rounded-md w-full hover:bg-slate-800'>
+                {props.label}
+            </button>
         </div>
     )
 }
